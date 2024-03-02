@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
     ifstream fileIn;
-    fileIn.open("Input_2.txt", ios_base::in);
+    fileIn.open("Input_1.txt", ios_base::in);
     // khởi tạo danh sách người chơi
     vector<string> playerList;
     playerList.push_back("Thang");
