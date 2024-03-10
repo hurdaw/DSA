@@ -99,6 +99,19 @@ int countSatisfyingNumbers(int k)
     }
     return count;
 }
+//
+int countSafitified(int n)
+{
+    int start = pow(10, n - 1);
+    int end = pow(10, n) - 1;
+    int count = 0;
+    for (int i = start; i <= end; ++i)
+    {
+        if (hasKDigits(i, n) && isPrime(i) && isReversedPrime(i) && isSumOfDigitsPrime(i) && areAllDigitsPrime(i))
+            ++count;
+    }
+    return count;
+}
 int main()
 {
     fstream fileIn, fileOut;
@@ -112,7 +125,7 @@ int main()
 
         int x;
         fileIn >> x;
-        int result = countSatisfyingNumbers(x);
+        int result = countSafitified(x);
         fileOut << x << " " << result << endl;
     }
     fileIn.close();
