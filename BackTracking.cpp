@@ -12,6 +12,7 @@ using namespace std;
 //}
 #define MAX 100
 int x[MAX];
+bool check[MAX];
 void init(int &n)
 {
     cout << "nhap n: ";
@@ -52,7 +53,7 @@ void resultToHop(int i, int k)
     {
         cout << x[i] << setw(3);
     }
-}
+};
 void TryToHop(int i, int n, int k)
 {
     for (int j = x[i - 1] + 1; j <= n - k + i; j++)
@@ -64,10 +65,41 @@ void TryToHop(int i, int n, int k)
             TryToHop(i + 1, n, k);
     }
 }
+void init_P(int &n)
+{
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        check[i] = false;
+    }
+}
+void result_P(int a[], int n)
+{
+    for (int i = 1; i <= n; i++)
+    {
+        cout << a[i] << " ";
+    }
+    cout << endl;
+}
+void Try_P(int a[], int i, int n)
+{
+    for (int j = 1; j <= n; j++)
+    {
+        if (!check[j])
+        {
+            a[i] = j;
+            check[j] = true;
+            if (i == n)
+                result_P(a, n);
+            else
+                Try_P(a, i + 1, n);
+            check[j] = false;
+        }
+    }
+}
 int main()
 {
     int n, k;
-    initToHop(n, k);
-    x[0] = 0;
-    TryToHop(1, n, k);
+    init_P(n);
+    Try_P(x, 1, n);
 }

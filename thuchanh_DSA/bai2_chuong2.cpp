@@ -1,62 +1,65 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-
 bool check = false;
-void nextBin(int b[], int m)
+void gen(int b[], int n)
 {
-    int i = m - 1;
+    // 1101
+    int i = n - 1;
     while (i >= 0 && b[i] == 1)
     {
         b[i] = 0;
         i--;
     }
     if (i >= 0)
-    {
         b[i] = 1;
-    }
     else
-    {
         check = true;
-    }
 }
-bool checkSum(int a[], int b[], int m, int k)
+bool checkSum(int a[], int b[], int n, int m, int k)
 {
-    int sum = 0;
-    for (int i = 0; i < m; i++)
+    int sum = 0, cnt = 0;
+    for (int i = 0; i < n; i++)
     {
         if (b[i] == 1)
+        {
             sum += a[i];
+            cnt++;
+        }
     }
-    return sum == k;
+    return (sum == k && cnt == m);
 }
-
+// 0 1  2  3  4
+// 5 10 15 20 25
+//
 int main()
 {
     fstream fileIn, fileOut;
     fileIn.open("Input22.txt", ios_base::in);
-    fileOut.open("Onput22.txt", ios_base::out);
-    int a[100], b[100] = {0}, n, m, k, cnt = 0;
-    fileIn >> n >> m >> k;
+    fileOut.open("Output22.txt", ios_base::out);
+    int a[100], b[100] = {0}, n, x, m, cnt = 0;
+    fileIn >> n >> m >> x;
     for (int i = 0; i < n; i++)
     {
         fileIn >> a[i];
     }
     while (!check)
     {
-        if (checkSum(a, b, m, k))
+        if (checkSum(a, b, n, m, x))
         {
-            for (int i = 0; i < m; i++)
+            for (int i = 0; i < n; i++)
             {
                 if (b[i] == 1)
+                {
                     fileOut << a[i] << " ";
+                }
             }
             fileOut << endl;
             cnt++;
         }
-        nextBin(b, m);
+        gen(b, n);
     }
-    fileOut << cnt;
+    fileOut<<cnt;
     fileIn.close();
     fileOut.close();
 }
