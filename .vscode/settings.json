@@ -3,6 +3,13 @@
     "iostream": "cpp",
     "charconv": "c",
     "iosfwd": "cpp",
-    "fstream": "cpp"
+    "fstream": "cpp",
+    "*.tcc": "cpp",
+    "bitset": "cpp",
+    "forward_list": "cpp",
+    "functional": "cpp",
+    "istream": "cpp",
+    "streambuf": "cpp",
+    "ostream": "cpp"
   }
 }
