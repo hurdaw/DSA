@@ -18,6 +18,7 @@ public:
     void update();          // cập nhật thông tin cho node
     void reverse();         // đảo ngược các node trong SLL
     void display();         // duyệt DLL
+    void input_linked_list(); // hàm nhập SLL
     single_linked_list()
     {
         start = NULL;
@@ -61,7 +62,7 @@ void single_linked_list::insert_begin()
 void single_linked_list::insert_last()
 {
     int value;
-    cout << " nhap gia tri cho node";
+    cout << " nhap gia tri cho node: ";
     cin >> value;
     struct node *temp, *s;
     temp = create_node(value);
@@ -298,11 +299,22 @@ void single_linked_list::reverse()
     }
     start = ptr2; // node đầu tiên bây giờ là ptr2
 }
+void single_linked_list::input_linked_list()
+{
+    char choice;
+    do
+    {
+        single_linked_list::insert_last();
+         cout << "Ban co muon nhap them gia tri? (y/n): ";
+            cin >> choice;
+    } while (choice == 'y' || choice == 'Y');
+}
 int main()
 {
     int choice;
     single_linked_list x;
     start = NULL;
+    x.input_linked_list();
     while (1)
     {
         cout << endl
@@ -375,7 +387,7 @@ int main()
             exit(1);
             break;
         default:
-        cout<<"Lua chon sai";
+            cout << "Lua chon sai";
             break;
         }
     }
