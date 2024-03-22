@@ -10,7 +10,7 @@ typedef struct node NODE;
 struct list
 {
     NODE *pHead;
-    NODE *pTail;
+    NODE *pTail; 
 };
 typedef struct list LIST;
 // khởi tạo

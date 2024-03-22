@@ -1,90 +1,101 @@
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <climits>
+
 using namespace std;
 
-struct node {
-    float soMu;
-    float heSo;
-    node *next;
+struct Process
+{
+    int id;  // Process ID
+    int bt;  // Burst Time
+    int at;  // Arrival Time
+    int ct;  // Completion Time
+    int wt;  // Waiting Time
+    int tat; // Turn Around Time
+    int rt;  // Remaining Time
 };
 
-class single_linked_list {
-public:
-    node *start;
-    single_linked_list() {
-        start = NULL;
-    }
-    node *create_node(float, float);
-    void insert_begin();
-    void insert_last();
-    void display();
-};
+void findCompletionTime(vector<Process> &procs)
+{
+    int time = 0, complete = 0, shortest = 0, finish_time;
+    int n = procs.size();
+    int minm = INT_MAX;
+    bool check = false;
 
-node *single_linked_list::create_node(float heSo, float soMu) {
-    node *p = new node;
-    if (p == nullptr) {
-        cout << "Khong du bo nho cap phat" << endl;
-        return nullptr;
-    } else {
-        p->heSo = heSo;
-        p->soMu = soMu;
-        p->next = NULL;
-        return p;
-    }
-}
-
-void single_linked_list::insert_begin() {
-    float heSo, soMu;
-    cout << "Nhap vao he so: ";
-    cin >> heSo;
-    cout << "Nhap vao so mu: ";
-    cin >> soMu;
-    node *temp = create_node(heSo, soMu);
-    if (temp == nullptr) return; // Kiểm tra trường hợp cấp phát không thành công
-    if (start == NULL) {
-        start = temp;
-    } else {
-        temp->next = start;
-        start = temp;
-    }
-}
-
-void single_linked_list::insert_last() {
-    float heSo, soMu;
-    cout << "Nhap vao he so: ";
-    cin >> heSo;
-    cout << "Nhap vao so mu: ";
-    cin >> soMu;
-    node *temp = create_node(heSo, soMu);
-    if (temp == nullptr) return; // Kiểm tra trường hợp cấp phát không thành công
-    if (start == NULL) {
-        start = temp;
-    } else {
-        node *p = start;
-        while (p->next != NULL) {
-            p = p->next;
+    while (complete != n)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            if ((procs[j].at <= time) && (procs[j].rt < minm) && procs[j].rt > 0)
+            {
+                minm = procs[j].rt;
+                shortest = j;
+                check = true;
+            }
         }
-        p->next = temp;
+
+        if (!check)
+        {
+            time++;
+            continue;
+        }
+
+        procs[shortest].rt--;
+
+        minm = procs[shortest].rt == 0 ? INT_MAX : procs[shortest].rt;
+        if (procs[shortest].rt == 0)
+        {
+            complete++;
+            check = false;
+
+            finish_time = time + 1;
+            procs[shortest].ct = finish_time;
+            procs[shortest].tat = procs[shortest].ct - procs[shortest].at;
+            procs[shortest].wt = procs[shortest].tat - procs[shortest].bt;
+        }
+        time++;
     }
 }
 
-void single_linked_list::display() {
-    node *temp = start;
-    while (temp != NULL) {
-        cout << temp->heSo << "x^" << temp->soMu;
-        if (temp->next != NULL) cout << " + ";
-        temp = temp->next;
+void findAverageTimes(vector<Process> &procs)
+{
+    int total_wt = 0, total_tat = 0;
+    int n = procs.size();
+
+    findCompletionTime(procs);
+
+    cout << "Processes "
+         << " Burst time "
+         << " Arrival time "
+         << " Completion time "
+         << " Turn around time "
+         << " Waiting time\n";
+
+    for (int i = 0; i < n; i++)
+    {
+        total_tat += procs[i].tat;
+        total_wt += procs[i].wt;
+
+        cout << " " << procs[i].id << "\t\t" << procs[i].bt << "\t\t"
+             << procs[i].at << "\t\t" << procs[i].ct << "\t\t"
+             << procs[i].tat << "\t\t" << procs[i].wt << endl;
     }
-    cout << endl;
+
+    cout << "Average turn around time = " << (float)total_tat / (float)n << endl;
+    cout << "Average waiting time = " << (float)total_wt / (float)n << endl;
 }
 
-int main() {
-    single_linked_list sll;
+int main()
+{
+    vector<Process> procs = {{1, 1, 3}, {2, 4, 1}, {3, 2, 4}, {4, 6, 0}, {5, 3, 2}};
 
-    // Ví dụ: thêm 5 nút
-    for (int i = 0; i < 5; ++i) {
-        sll.insert_last();
+    for (auto &proc : procs)
+    {
+        proc.rt = proc.bt; // Initialize remaining time
     }
 
-    sll.display();
+    findAverageTimes(procs);
+
     return 0;
 }
