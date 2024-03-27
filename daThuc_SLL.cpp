@@ -75,20 +75,18 @@ void input(LIST &l, NODE *p)
         insert_last(l, p);
     }
 }
-void inputFile(LIST &l, NODE *p)
+void inputFile(LIST &l, ifstream &FILEIN)
 {
-    int n;
-    ifstream FILEIN;
-    FILEIN.open("daThuc.txt", ios_base::in);
-    FILEIN >> n;
-    init(l);
-    for (int i = 1; i <= n; i++)
+    int n, heSo, soMu;
+    if (FILEIN >> n)
     {
-        int heSo, soMU;
-        FILEIN >> heSo;
-        FILEIN >> soMU;
-        p = createNode(heSo, soMU);
-        insert_last(l, p);
+        init(l);
+        for (int i = 0; i < n; i++)
+        {
+            FILEIN >> heSo >> soMu;
+            NODE *p = createNode(heSo, soMu);
+            insert_daThuc_last(l, heSo, soMu);
+        }
     }
 }
 void output(LIST l)
@@ -108,12 +106,12 @@ LIST daThuc(LIST &p, LIST &q)
     {
         if (m == NULL)
         {
-            insert_daThuc_last(r, m->heSo, m->soMu);
+            insert_daThuc_last(r, n->heSo, n->soMu);
             m = m->pNext;
         }
         else if (n == NULL)
         {
-            insert_daThuc_last(r, n->heSo, n->soMu);
+            insert_daThuc_last(r, m->heSo, m->soMu);
             n = n->pNext;
         }
         else if (m->soMu > n->soMu)
@@ -138,12 +136,16 @@ LIST daThuc(LIST &p, LIST &q)
 }
 int main()
 {
-    ifstream FILEIN;
-    FILEIN.open("daThuc.txt", ios_base::in);
+    ifstream FILEIN("daThuc.txt");
+    if (!FILEIN.is_open())
+    {
+        cout << "cannot open the file!" << endl;
+        return 1;
+    }
     LIST p, q, r;
-    NODE *m, *n;
-    inputFile(p, m);
-    inputFile(q, n);
+    inputFile(p, FILEIN);
+    inputFile(q, FILEIN);
     r = daThuc(p, q);
     output(r);
+    FILEIN.close();
 }

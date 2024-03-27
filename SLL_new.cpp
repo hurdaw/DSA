@@ -10,7 +10,7 @@ typedef struct node NODE;
 struct list
 {
     NODE *pHead;
-    NODE *pTail; 
+    NODE *pTail;
 };
 typedef struct list LIST;
 // khởi tạo
@@ -94,11 +94,53 @@ int max(LIST l)
     }
     return max;
 }
+void swap(int *a, int *b)
+{
+    int tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+void sort(int a[], int n)
+{
+    for (int i = 0; i < n - 1; i++)
+    {
+        for (int j = i + 1; j < n; j++)
+        {
+            if (a[i] < a[j])
+                swap(a[i], a[j]);
+        }
+    }
+}
+void sortSLL(LIST &l)
+{
+    for (NODE *p = l.pHead; p != l.pTail; p = p->pNext)
+    {
+        for (NODE *q = p->pNext; q != NULL; q = q->pNext)
+        {
+            if (p->data > q->data)
+                swap(p->data, q->data);
+        }
+    }
+}
+void free(LIST &l)
+{
+    NODE *p;
+    while (l.pHead != NULL)
+    {
+        p = l.pHead;
+        l.pHead = l.pHead->pNext;
+        delete (p);
+    }
+}
+// thêm node p vào sau node q
+void insert_pos(LIST &l, NODE *p, NODE *q){
+    
+}
 int main()
 {
     LIST l;
     input(l);
-    output(l);
     cout << endl;
-    cout << max(l);
+    sortSLL(l);
+    output(l);
 }
