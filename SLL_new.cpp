@@ -133,14 +133,55 @@ void free(LIST &l)
     }
 }
 // thêm node p vào sau node q
-void insert_pos(LIST &l, NODE *p, NODE *q){
-    
+void insert_pos(LIST &l, NODE *p, NODE *q)
+{
+    for (NODE *g = l.pHead; g != NULL; g = g->pNext)
+    {
+        if (g->data == q->data)
+        {
+            NODE *k = g->pNext;
+            g->pNext = p;
+            p->pNext = k;
+            return;
+        }
+    }
+}
+void delete_begin(LIST &l)
+{
+    NODE *p = l.pHead;
+    l.pHead = l.pHead->pNext;
+    delete (p);
+}
+void delete_last(LIST &l)
+{
+    NODE *p = l.pHead;
+    // duyệt đến node kề cuối
+    while (p->pNext != l.pTail)
+    {
+        p = p->pNext;
+    }
+    p->pNext = NULL;
+    l.pTail = p;
+}
+// xóa node p sau node q
+void delete_pos(LIST &l, NODE *p, NODE *q)
+{
+    for (NODE *k = l.pHead; k != NULL; k = k->pNext)
+    {
+        if (k->data = q->data)
+        {
+            NODE *g = k->pNext;
+            
+        }
+    }
 }
 int main()
 {
     LIST l;
+    NODE *p, *q;
     input(l);
+    delete_begin(l);
+    delete_last(l);
     cout << endl;
-    sortSLL(l);
     output(l);
 }
