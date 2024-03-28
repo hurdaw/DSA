@@ -163,16 +163,26 @@ void delete_last(LIST &l)
     p->pNext = NULL;
     l.pTail = p;
 }
-// xóa node p sau node q
-void delete_pos(LIST &l, NODE *p, NODE *q)
+// xóa node sau node q
+void delete_pos(LIST &l, NODE *p)
 {
-    for (NODE *k = l.pHead; k != NULL; k = k->pNext)
+    NODE *k = l.pHead;
+    if (l.pHead == NULL || p == NULL)
+        return;
+    while (k != NULL && k->pNext != NULL)
     {
-        if (k->data = q->data)
+        if (k->pNext == p)
         {
-            NODE *g = k->pNext;
-            
+            NODE *tmp = k->pNext;
+            k->pNext = tmp->pNext;
+            if (tmp == l.pTail)
+            {
+                l.pTail == k;
+            }
+            delete (tmp);
+            return;
         }
+        k = k->pNext;
     }
 }
 int main()
@@ -180,8 +190,10 @@ int main()
     LIST l;
     NODE *p, *q;
     input(l);
-    delete_begin(l);
-    delete_last(l);
+    int m;
+    cin >> m;
+    p = create_node(m);
+    delete_pos(l, p);
     cout << endl;
     output(l);
 }
