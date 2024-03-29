@@ -164,25 +164,24 @@ void delete_last(LIST &l)
     l.pTail = p;
 }
 // xóa node sau node q
-void delete_pos(LIST &l, NODE *p)
+void delete_pos(LIST &l, int pos)
 {
-    NODE *k = l.pHead;
-    if (l.pHead == NULL || p == NULL)
-        return;
-    while (k != NULL && k->pNext != NULL)
-    {
-        if (k->pNext == p)
+    cout<<" nhap pos: ";cin>>pos;
+    NODE *s, *ptr;
+    if(l.pHead==NULL){
+        cout<<" list rong"<<endl;
+    }
+    s=l.pHead;
+    if(pos==1){
+        l.pHead=s->pNext;
+        s->pNext=NULL;
+        delete(s);
+    }else{
+        while (l.pHead!=NULL)
         {
-            NODE *tmp = k->pNext;
-            k->pNext = tmp->pNext;
-            if (tmp == l.pTail)
-            {
-                l.pTail == k;
-            }
-            delete (tmp);
-            return;
+            
         }
-        k = k->pNext;
+        
     }
 }
 int main()
