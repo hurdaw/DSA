@@ -163,25 +163,41 @@ void delete_last(LIST &l)
     p->pNext = NULL;
     l.pTail = p;
 }
-// xóa node sau node q
-void delete_pos(LIST &l, int pos)
+// xóa node g sau node q
+void delete_pos(LIST &l, NODE *q)
 {
-    cout<<" nhap pos: ";cin>>pos;
-    NODE *s, *ptr;
-    if(l.pHead==NULL){
-        cout<<" list rong"<<endl;
-    }
-    s=l.pHead;
-    if(pos==1){
-        l.pHead=s->pNext;
-        s->pNext=NULL;
-        delete(s);
-    }else{
-        while (l.pHead!=NULL)
+    NODE *g;
+    for (NODE *k = l.pHead; k != NULL; k = k->pNext)
+    {
+        if (k->data == q->data)
         {
-            
+            g = k->pNext;
+            k->pNext = g->pNext;
+            delete g;
+            return;
         }
-        
+    }
+}
+// xóa node bất kỳ
+void delete_pos2(LIST &l, int data)
+{
+    if (l.pHead->data == data)
+    {
+        delete_begin(l);
+    }
+    if (l.pTail->data == data)
+    {
+        delete_last(l);
+    }
+    NODE *q;
+    for (NODE *k = l.pHead; k != NULL; k = k->pNext)
+    {
+        if (k->data == data)
+        {
+            delete_pos(l, q);
+            return;
+        }
+        q = k;
     }
 }
 int main()
@@ -189,10 +205,10 @@ int main()
     LIST l;
     NODE *p, *q;
     input(l);
-    int m;
-    cin >> m;
-    p = create_node(m);
-    delete_pos(l, p);
+    int m, n;
+    cin >> n;
+    q = create_node(n);
+    delete_pos2(l, n);
     cout << endl;
     output(l);
 }

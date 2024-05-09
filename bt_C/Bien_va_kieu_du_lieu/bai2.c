@@ -4,11 +4,11 @@ int main()
 {
     enum congTy
     {
-        Google,
-        Facebook,
-        Xerok,
-        Yahoo,
-        Ebay,
-        Microsoft
+        GOOGLE,
+        FACEBOOK,
+        XEROX,
+        YAHOO,
+        EBAY,
+        MICROSOFT
     };
 }
