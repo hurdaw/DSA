@@ -122,9 +122,14 @@ void chuanHoa1(char c[])
     char *str = strtok(c, " ");
     while (str)
     {
-        printf("%s\n", str);
+        if(str[0]>='a'&&str[0]<='z'){
+        	str[0]=str[0]-32;
+		}
         str = strtok(NULL, " ");
     }
+    for(int i=0;i<5;i++){
+    	cout<<c[i]<<" ";
+	}
 }
 int main()
 {
