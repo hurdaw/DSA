@@ -81,7 +81,13 @@ void init_Queen(int a[], int &n, bool cot[], bool xuoi[], bool nguoc[])
 }
 void result_Queen(int a[], int x[][100], int n)
 {
-    memset(x, 0, n * 100 * sizeof(x));
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
+            x[i][j] = 0;
+        }
+    }
     for (int i = 1; i <= n; i++)
     {
         x[i][a[i]] = 1;
@@ -107,8 +113,10 @@ void try_Queen(int a[], int n, bool cot[], bool xuoi[], bool nguoc[], int i, int
             xuoi[i - j + n] = false;
             nguoc[i + j - 1] = false;
             if (i == n)
-                // result_Queen(a, x, n);
+            {
+                result_Queen(a, x, n);
                 cnt++;
+            }
             else
                 try_Queen(a, n, cot, xuoi, nguoc, i + 1, x);
             cot[j] = true;

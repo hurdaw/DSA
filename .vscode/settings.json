@@ -72,7 +72,8 @@
     "initializer_list": "cpp",
     "shared_mutex": "cpp",
     "typeinfo": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "queue": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

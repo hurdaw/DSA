@@ -22,13 +22,17 @@ void swap(int *a, int *b)
     *a = *b;
     *b = t;
 }
+// 8 3 1 2 5
+// 3 8 1 2 5
+// 3 1 8 2 5
+// 3 1 2 8 5
+// 
 int partition(int arr[], int l, int h)
 {
     int x = arr[h];
     int i = (l - 1);
     for (int j = l; j <= h - 1; j++)
     {
-
         if (arr[j] <= x)
         {
             i++;
