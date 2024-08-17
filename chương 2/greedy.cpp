@@ -230,10 +230,10 @@ void greedy_things(int value, THINGS t[], THINGS ans[], int n)
 int main()
 {
     int start[MAX], end[MAX], cnt = 1, n, value;
-    //cin >> n;
+    // cin >> n;
     bool res[MAX];
     THINGS t[n], ans[n];
-    greedyActivityAction(start, end, res, n, cnt);
-    // xauKyTu_greedy();
-    // greedy_things(value, t, ans, n);
+    // greedyActivityAction(start, end, res, n, cnt);
+    //  xauKyTu_greedy();
+    greedy_things(value, t, ans, n);
 }

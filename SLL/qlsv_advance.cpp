@@ -107,11 +107,11 @@ int main()
                         {
                             cout << "ma mon hoc khong ton tai. Vui long nhap lai!" << endl;
                         }
-                        else if (!check2)
+                        else if (check2)
                         {
                             cout << "mon nay da hoc roi." << endl;
                         }
-                    } while (!check1 || !check2);
+                    } while (check1==-1 || check2);
                     cout << "nhap diem: ";
                     cin >> score_tmp.score;
                     // thêm sinh viên tạm vào danh sách sinh viên
@@ -281,6 +281,7 @@ NODE_SCORE_TP *createNode(SCORE_TP a)
     p->data = a;
     p->pNext = NULL;
     p->pPrev = NULL;
+    return p;
 }
 void insert_score(LIST_SCORE &score, SCORE_TP a)
 {
@@ -306,10 +307,10 @@ void list_score_by_codeSV(LIST_SCORE lsc, LIST_SUBJECT lsb, string s)
         {
             cout << "\t----- Diem thu " << j++ << " -----" << endl;
             cout << "ma mon hoc: " << p->data.code_sub << endl;
-            int i=check_codeSub_equal(lsb, p->data.code_sub);
-            cout<<"ten mon: "<<lsb.list[i].name<<endl;
-            cout<<"so tin chi: "<<lsb.list[i].stc<<endl;
-            cout<<"diem: "<<p->data.score<<endl;
+            int i = check_codeSub_equal(lsb, p->data.code_sub);
+            cout << "ten mon: " << lsb.list[i].name << endl;
+            cout << "so tin chi: " << lsb.list[i].stc << endl;
+            cout << "diem: " << p->data.score << endl;
         }
     }
 }

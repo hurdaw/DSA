@@ -114,7 +114,7 @@ void find_node_replace(TREE &x, TREE &y) // y = t->pRight
 }
 void delete_tree(TREE &t, int value)
 {
-    if (t == NULL)
+    if (t == NULL)  
         return;
     else
     {
